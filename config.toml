@@ -1,6 +1,7 @@
 title = "Open Service Mesh"
 baseURL = "https://docs.openservicemesh.io/"
-languageCode = "en-us"
+languageCode = "zh"
+defaultContentLanguage = "zh"
 description = "Documentation for Open Service Mesh (OSM)"
 theme = "dosmy"
 RelativeURLs=true
@@ -8,17 +9,17 @@ CanonifyURLs=true
 
 # Theme General Config
 [languages]
-	[languages.en]
-		title = "Open Service Mesh"
-		contentDir = 'content/en'
-		description = "Documentation for Open Service Mesh (OSM)"
-		languageName ="English"
-		weight = 1
 	[languages.zh]
 		title = "开放服务网格"
 		contentDir = 'content/zh'
 		description = "Documentation for Open Service Mesh (OSM)"
 		languageName ="中文"
+		weight = 1
+	[languages.en]
+		title = "Open Service Mesh"
+		contentDir = 'content/en'
+		description = "Documentation for Open Service Mesh (OSM)"
+		languageName ="English"
 		weight = 2
 [services]
 [services.googleAnalytics]

@@ -1,9 +1,11 @@
 {{ $cover := .HasShortcode "blocks/cover" }}
+
 <nav class="js-navbar-scroll navbar navbar-expand {{ if $cover}} td-navbar-cover {{ end }}flex-column flex-md-row td-navbar">
-        <a class="navbar-brand" href="{{ .Site.Params.project_home }}">
+  <a class="navbar-brand" href="{{ .Site.Params.project_home }}">
 		<span class="navbar-logo">{{ if .Site.Params.ui.navbar_logo }}{{ with resources.Get "icons/logo.svg" }}{{ ( . | minify).Content | safeHTML }}{{ end }}{{ end }}</span><span class="text-uppercase font-weight-bold">{{ .Site.Title }}</span>
 	</a>
 	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<div style="width: 100%;background-color:rgba(18,39,139,0.1);color: #091863;font-weight: bold ;position: fixed;top: 0;left: 0;font-size: 12px;text-align: center;">Hosted osm docs for translation review usage</div>
 		<ul class="navbar-nav mt-2 mt-lg-0">
 			{{ $p := . }}
 			{{ range .Site.Menus.main }}
