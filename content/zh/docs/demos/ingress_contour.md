@@ -5,11 +5,11 @@ type: docs
 weight: 10
 ---
 
-SM 可以选择使用 [Contour](https://projectcontour.io) 入口控制器和基于 Envoy 的边缘代理来路由外部的流量到服务网格后端。这个指南演示了如何为 OSM 服务网格管理的服务配置 HTTP 和 HTTPS ingress。
+OSM 可以选择使用 [Contour](https://projectcontour.io) 入口控制器和基于 Envoy 的边缘代理来路由外部的流量到服务网格后端。这个指南将会演示如何为 OSM 服务网格管理的服务配置 HTTP 和 HTTPS ingress。
 
 ## 先决条件
 
-- Kubernetes 集群版本 {{< param min_k8s_version >}} 或者更高。
+- Kubernetes 集群运版本 {{< param min_k8s_version >}} 或者更高。
 - 使用 `kubectl` 与 API server 交互。
 - 未安装 OSM。如果已安装必须先删除。
 - 已安装 `osm` 或者 `Helm 3` 命令行工具，用于安装 OSM 和 Contour。
@@ -18,13 +18,13 @@ SM 可以选择使用 [Contour](https://projectcontour.io) 入口控制器和基
 
 ## 演示
 
-首先，在 `osm-system` 命名空间下安装 OSM 和 Contour，并将网格名字命名为 `osm`。
+首先，在 `osm-system` 命名空间下安装 OSM 和 Contour，并将网格命名为 `osm`。
 ```bash
 export osm_namespace=osm-system # Replace osm-system with the namespace where OSM will be installed
 export osm_mesh_name=osm # Replace osm with the desired OSM mesh name
 ```
 
-使用 `osm` 命令行工具：
+基于 `osm` 命令行工具：
 ```bash
 osm install --set contour.enabled=true \
     --mesh-name "$osm_mesh_name" \
@@ -33,7 +33,7 @@ osm install --set contour.enabled=true \
     --set contour.configInline.tls.envoy-client-certificate.namespace="$osm_namespace"
 ```
 
-使用 `Helm` 安装：
+基于 `Helm` 安装：
 ```bash
 helm install "$osm_mesh_name" osm --repo https://openservicemesh.github.io/osm \
     --set contour.enabled=true \
@@ -41,7 +41,7 @@ helm install "$osm_mesh_name" osm --repo https://openservicemesh.github.io/osm \
     --set contour.configInline.tls.envoy-client-certificate.namespace="$osm_namespace"
 ```
 
-为了通过对访问后端流量的限制来对客户端授权，我们将配置 IngressBackend，这样只有来自 `osm-contour-envoy` 端点的入口流量才可以路由到后端服务。为了发现 `osm-contour-envoy` 端点，我们需要 OSM 控制器及监视相应的命名空间。但是为了保证 Contour 功能正常，不能为其注入 Envoy sidecar。
+为了将后端的入口流量限制到授权客户端，我们将设置 IngressBackend 配置，以便只有来自 `osm-contour-envoy` 端点的入口流量，才能访问到对应的服务后端。为了能够发现  服务的端点，我们需要 OSM 控制器来监控相应的命名空间。 然而，为了 Contour 正常运行，其必须不能注入 Envoy sidecar。
 
 ```bash
 kubectl label namespace "$osm_namespace" openservicemesh.io/monitored-by="$osm_mesh_name"
@@ -54,7 +54,7 @@ export ingress_host="$(kubectl -n "$osm_namespace" get service osm-contour-envoy
 export ingress_port="$(kubectl -n "$osm_namespace" get service osm-contour-envoy -o jsonpath='{.spec.ports[?(@.name=="http")].port}')"
 ```
 
-下一步是部署示例 `httpbin` 服务。
+接下来，我们将部署 `httpbin`的 示例服务。
 
 ```bash
 # Create a namespace
@@ -67,7 +67,7 @@ osm namespace add httpbin
 kubectl apply -f https://raw.githubusercontent.com/openservicemesh/osm-docs/{{< param osm_branch >}}/manifests/samples/httpbin/httpbin.yaml -n httpbin
 ```
 
-确保 `httpbin` 服务和 pod 启动并正常运行：
+确认 `httpbin` 服务和 pod 启动并运行。
 
 ```console
 $ kubectl get pods -n httpbin
@@ -81,7 +81,7 @@ httpbin   ClusterIP   10.0.22.196   <none>        14001/TCP   11h
 
 ### HTTP Ingress
 
-接下来，创建必要的 HTTPProxy 和 IngressBackend 配置来允许外部客户端访问 `httpbin` 命名空间下 `httpbin` 服务的 `14001` 端口。因为没有使用 TLS，Contour入口网关到 `httpbin` 后端 pod 的链接没有加密。
+下一步，我们将创建对应的 Ingress 和 IngressBackend 配置，来允许外部的客户端访问位于`httpbin` 命名空间下 ，运行在 `14001` 端口上的 `httpbin` 服务。由于我们没有使用 TLS，Contour 入口网关到 `httpbin` 后端 pod 的连接是没有进行加密。
 
 ```bash
 kubectl apply -f - <<EOF
@@ -116,7 +116,7 @@ spec:
 EOF
 ```
 
-现在，我们期望外部客户端可以访问 `httpbin` 服务，HTTP 请求的 `HOST` 请求头为 `httpbin.org`：
+现在，我们预期外部客户端可以访问 `httpbin` 服务，HTTP 请求的 `HOST` 请求头为 `httpbin.org`：
 
 ```console
 $ curl -sI http://"$ingress_host":"$ingress_port"/get -H "Host: httpbin.org"
@@ -198,7 +198,7 @@ spec:
 EOF
 ```
 
-这时，我们期望外部的客户端可以访问 `httpbin` 服务，在入口网关和后端服务之间通过 mTLS 进行 HTTPS 代理，发送 HTTP 请求的 `Host:` 请求头为 `httpbin.org` ：
+这时，我们预期外部的客户端可以访问 `httpbin` 服务，在入口网关和后端服务之间通过 mTLS 进行 HTTPS 代理，发送 HTTP 请求的 `Host:` 请求头为 `httpbin.org` ：
 
 ```console
 $ curl -sI http://"$ingress_host":"$ingress_port"/get -H "Host: httpbin.org"
@@ -251,7 +251,7 @@ server: envoy
 x-envoy-upstream-service-time: 8
 ```
 
-下一步，我们演示在必要时支持禁用客户端证书认证，通过更新 IngressBackend 配置设置 `skipClientCertValidation: true`，同时还是用不可信的客户端：
+接下来，我们通过更新 IngressBackend 配置 `skipClientCertValidation: true` 来演示对服务后端禁用客户端证书验证的支持，同时仍使用不受信任的客户端：
 
 ```bash
 kubectl apply -f - <<EOF
@@ -277,7 +277,7 @@ spec:
 EOF
 ```
 
-确认允许未经认证的客户端访问后端服务：
+由于未经信任的已验证用户被允许连接后端服务，确认请求再次访问成功
 
 ```
 $ curl -sI http://"$ingress_host":"$ingress_port"/get -H "Host: httpbin.org"
