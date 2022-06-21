@@ -29,7 +29,7 @@ helm repo update
 helm install stable prometheus-community/prometheus
 ```
 
-`helm install` 命令的输出中包含了 Prometheus 服务的 DNS 链接。例如：
+`helm install` 命令的输出中包含了 Prometheus 服务端的 DNS 链接。例如：
 
 ```
 ...
@@ -288,7 +288,7 @@ data:
           replacement: /api/v1/nodes/${1}/proxy/metrics/cadvisor
 ```
 
-使用 `kubectl apply` 来更新 Prometheus 服务器 configmap。
+使用 `kubectl apply` 来更新 Prometheus 服务端 configmap。
 
 ```
 kubectl apply -f update-prometheus-configmap.yaml
