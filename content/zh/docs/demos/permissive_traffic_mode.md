@@ -17,7 +17,7 @@ weight: 1
 
 ## 演示
 
-以下演示了一个 HTTP `curl` 客户端，在宽松流量策略模式下，向 `httpbin` 服务发送 HTTP 请求。
+以下演示了一个 HTTP `curl` 客户端，在宽松流量策略模式下，向 `httpbin` service 发送 HTTP 请求。
 
 1. 开启宽松流量模式
 
@@ -26,7 +26,7 @@ weight: 1
     kubectl patch meshconfig osm-mesh-config -n "$osm_namespace" -p '{"spec":{"traffic":{"enablePermissiveTrafficPolicyMode":true}}}'  --type=merge
     ```
 
-2. 在 `httpbin` 命名空间下部署 `httpbin` 服务，并纳入网格管理。 `httpbin` 服务运行在 `14001` 端口。
+2. 在 `httpbin` 命名空间下部署 `httpbin` service ，并纳入网格管理。 `httpbin` service 运行在 `14001` 端口。
 
     ```bash
     # Create the httpbin namespace
@@ -39,7 +39,7 @@ weight: 1
     kubectl apply -f https://raw.githubusercontent.com/openservicemesh/osm-docs/{{< param osm_branch >}}/manifests/samples/httpbin/httpbin.yaml -n httpbin
     ```
 
-    确认 `httpbin` 服务和pod 启动并运行。
+    确认 `httpbin` service 和pod 启动并运行。
 
     ```console
     $ kubectl get svc -n httpbin
@@ -88,7 +88,7 @@ weight: 1
     x-envoy-upstream-service-time: 2
     ```
 
-    `200 OK` 响应表示 `curl` 客户端访问`httpbin` 服务成功。
+    `200 OK` 响应表示 `curl` 客户端访问`httpbin` service 成功。
 
 5. 确认在禁用宽松流量模式后 HTTP 请求失败。
 

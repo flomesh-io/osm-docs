@@ -18,9 +18,9 @@ weight: 22
 
 ## 演示
 
-下面的演示展示了一个负载测试客户端 [fortio](https://github.com/fortio/fortio) 将流量发送到服务网格的外部服务 `httpbin` 。发送到网格服务外的流量被认为是 [出口](/docs/guides/traffic_management/egress) 流量, 其会被  [Egress traffic policy](/docs/guides/traffic_management/egress/#1-configuring-egress-policies) 进行授权。我们将看到为外部 `httpbin` 服务配置的流量熔断器被触发后，是如何影响 `fortio` 客户端。
+下面的演示展示了一个负载测试客户端 [fortio](https://github.com/fortio/fortio) 将流量发送到服务网格的外部 service `httpbin` 。发送到网格服务外的流量被认为是 [出口](/docs/guides/traffic_management/egress) 流量, 其会被  [Egress traffic policy](/docs/guides/traffic_management/egress/#1-configuring-egress-policies) 进行授权。我们将看到为外部 `httpbin` service 配置的流量熔断器被触发后，是如何影响 `fortio` 客户端。
 
-1. 部署 `httpbin` 服务到 `httpbin` 命名空间。`httpbin` 服务运行在 `14001` 端口，且没有纳入网格管理，因此可以看成是网格外部的服务。
+1. 部署 `httpbin` service 到 `httpbin` 命名空间。`httpbin` service 运行在 `14001` 端口，且没有纳入网格管理，因此可以看成是网格外部的服务。
 
     ```bash
     # Create the httpbin namespace
@@ -30,7 +30,7 @@ weight: 22
     kubectl apply -f https://raw.githubusercontent.com/openservicemesh/osm-docs/{{< param osm_branch >}}/manifests/samples/httpbin/httpbin.yaml -n httpbin
     ```
 
-    确认 `httpbin` 服务和pod 启动并运行。
+    确认 `httpbin` service 和 pod 启动并运行。
 
     ```console
     $ kubectl get svc -n httpbin
@@ -56,7 +56,7 @@ weight: 22
     kubectl apply -f https://raw.githubusercontent.com/openservicemesh/osm-docs/{{< param osm_branch >}}/manifests/samples/fortio/fortio.yaml -n client
     ```
 
-    确认 `fortio` 服务和pod 启动并运行
+    确认 `fortio` 客户端 pod 启动并运行
 
     ```console
     $ kubectl get pods -n client
@@ -64,7 +64,7 @@ weight: 22
     fortio-6477f8495f-bj4s9   2/2     Running   0          19s
     ```
 
-3. 配置 Egress 策略允许 `client` 命名空间下的 `fortio` 客户端可以与外部的 `httpbin` 服务进行通信。HTTP 请求将被发送到域名 `httpbin.httpbin.svc.cluster.local` 的 `14001` 端口。
+3. 配置 Egress 策略允许 `client` 命名空间下的 `fortio` 客户端可以与外部的 `httpbin` service 进行通信。HTTP 请求将被发送到域名 `httpbin.httpbin.svc.cluster.local` 的 `14001` 端口。
     ```bash
     kubectl apply -f - <<EOF
     kind: Egress
@@ -85,7 +85,7 @@ weight: 22
     EOF
     ```
 
-4. 确认 `fortio` 客户端可以成功发送 HTTP 请求到外部服务 `httpbin.httpbin.svc.cluster.local` 的 `14001` 端口。使用 `5` 个并发（`-c 5`）发送 50 个请求（`-n 50`）到外部服务。
+4. 确认 `fortio` 客户端可以成功发送 HTTP 请求到外部 service `httpbin.httpbin.svc.cluster.local` 的 `14001` 端口。使用 `5` 个并发（`-c 5`）发送 50 个请求（`-n 50`）到外部服务。
     ```console
     $ export fortio_pod="$(kubectl get pod -n client -l app=fortio -o jsonpath='{.items[0].metadata.name}')"
     

@@ -18,7 +18,7 @@ weight: 21
 
 ## 演示
 
-下面的演示展示了一个负载测试客户端 [fortio](https://github.com/fortio/fortio) 向 `httpbin` 服务发送流量。 我们将看到当配置的熔断限制触发时，为 `httpbin` 服务配置的流量应用熔断器是如何影响 `fortio` 客户端。
+下面的演示展示了一个负载测试客户端 [fortio](https://github.com/fortio/fortio) 向 `httpbin` service 发送流量。 我们将看到当配置的熔断限制触发时，为 `httpbin` service 配置的流量应用熔断器是如何影响 `fortio` 客户端。
 
 1. 为简单起见，启用 [permissive traffic policy mode](/docs/guides/traffic_management/permissive_mode) 以便网格内的应用程序连接，而不需要显式配置 SMI 流量访问策略。
 
@@ -27,7 +27,7 @@ weight: 21
     kubectl patch meshconfig osm-mesh-config -n "$osm_namespace" -p '{"spec":{"traffic":{"enablePermissiveTrafficPolicyMode":true}}}'  --type=merge
     ```
 
-2. 在 `httpbin` 命名空间下部署 `httpbin` 客户端，并将命名空间纳入网格管理。`httpbin` 服务运行在 `14001` 端口上。
+2. 在 `httpbin` 命名空间下部署 `httpbin` 客户端，并将命名空间纳入网格管理。`httpbin` service 运行在 `14001` 端口上。
 
     ```bash
     # Create the httpbin namespace
@@ -40,7 +40,7 @@ weight: 21
     kubectl apply -f https://raw.githubusercontent.com/openservicemesh/osm-docs/{{< param osm_branch >}}/manifests/samples/httpbin/httpbin.yaml -n httpbin
     ```
 
-    确认 `httpbin` 服务和 pod 启动并运行。
+    确认 `httpbin` service 和 pod 启动并运行。
 
     ```console
     $ kubectl get svc -n httpbin
@@ -74,7 +74,7 @@ weight: 21
     fortio-6477f8495f-bj4s9   2/2     Running   0          19s
     ```
 
-4. 确认 `fortio` 客户端可以成功发送 HTTP 请求到 `httpbin` 服务的 `14001`  端口。我们将使用 `3` 个并发连接 (`-c 3`) 调用`httpbin` 服务并发送 `50` 个请求(`-n 50`)。
+4. 确认 `fortio` 客户端可以成功发送 HTTP 请求到 `httpbin` service 的 `14001`  端口。我们将使用 `3` 个并发连接 (`-c 3`) 调用`httpbin` service 并发送 `50` 个请求(`-n 50`)。
     ```console
     $ export fortio_pod="$(kubectl get pod -n client -l app=fortio -o jsonpath='{.items[0].metadata.name}')"
     
@@ -116,9 +116,9 @@ weight: 21
     Code 200 : 50 (100.0 %)
     ```
 
-5. 接下来，使用 `UpstreamTrafficSetting` 资源为请求到 `httpbin` 服务的流量应用配置熔断器，并将最大并发连接数和请求数限制为 `1`
+5. 接下来，使用 `UpstreamTrafficSetting` 资源为请求到 `httpbin` service 的流量应用配置熔断器，并将最大并发连接数和请求数限制为 `1`
 
-   > 注意： `UpstreamTrafficSetting` 资源必须创建在与上游（目标）服务相同的命名空间中，并且主机必须设置为 Kubernetes 服务的 FQDN。
+   > 注意： `UpstreamTrafficSetting` 资源必须创建在与上游（目标）service 相同的命名空间中，并且主机必须设置为 Kubernetes service 的 FQDN。
 
     ```bash
     kubectl apply -f - <<EOF

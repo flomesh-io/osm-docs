@@ -113,7 +113,7 @@ weight: 30
     kubectl patch meshconfig osm-mesh-config -n "$osm_namespace" -p '{"spec":{"traffic":{"enablePermissiveTrafficPolicyMode":true}}}'  --type=merge
     ```
 
-4. 将 `httpbin` 命名空间纳入网格后，在该命名空间下部署 `httpbin` 服务。 这个服务在 `14001` 端口上运行。
+4. 将 `httpbin` 命名空间纳入网格后，在该命名空间下部署 `httpbin` service 。 这个 service 在 `14001` 端口上运行。
 
     ```bash
     # Create the httpbin namespace
@@ -126,7 +126,7 @@ weight: 30
     kubectl apply -f https://raw.githubusercontent.com/openservicemesh/osm-docs/{{< param osm_branch >}}/manifests/samples/httpbin/httpbin.yaml -n httpbin
     ```
 
-    确保 `httpbin` 服务和 pod 已经启动并运行。
+    确保 `httpbin` service 和 pod 已经启动并运行。
 
     ```console
     $ kubectl get svc -n httpbin
@@ -175,7 +175,7 @@ weight: 30
     x-envoy-upstream-service-time: 2
     ```
 
-    `200 OK` 响应表明：来自 `curl` 客户端的请求， 发送到 `httpbin` 服务成功了。应用 sidecar 代理间的流量是加密的，并使用 `cert-manager` 证书提供者颁发的证书完成 `双向 TLS（mTLS）`认证。
+    `200 OK` 响应表明：来自 `curl` 客户端的请求， 发送到 `httpbin` service 成功了。应用 sidecar 代理间的流量是加密的，并使用 `cert-manager` 证书提供者颁发的证书完成 `双向 TLS（mTLS）`认证。
 
 
 [1]: https://cert-manager.io/

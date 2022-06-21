@@ -29,13 +29,13 @@ nginx_ingress_host="$(kubectl -n "$nginx_ingress_namespace" get service "$nginx_
 nginx_ingress_port="$(kubectl -n "$nginx_ingress_namespace" get service "$nginx_ingress_service" -o jsonpath='{.spec.ports[?(@.name=="http")].port}')"
 ```
 
-为了将后端的入口流量限制到授权客户端，我们将设置 IngressBackend 配置，以便只有来自 Nginx 入口控制器服务的流量，才能访问到对应的服务后端。为了能够发现该服务的端点，我们需要 OSM 控制器来监控相应的命名空间。 然而，为了 Nginx 正常运行，其必须不能注入 Envoy sidecar。
+为了将后端的入口流量限制到授权客户端，我们将设置 IngressBackend 配置，以便只有来自 Nginx 入口控制器 service 的流量，才能访问到对应的服务后端。为了能够发现该 service 的端点，我们需要 OSM 控制器来监控相应的命名空间。 然而，为了 Nginx 正常运行，其必须不能注入 Envoy sidecar。
 
 ```bash
 osm namespace add "$nginx_ingress_namespace" --mesh-name "$osm_mesh_name" --disable-sidecar-injection
 ```
 
-接下来，我们将部署 `httpbin`的 示例服务。
+接下来，我们将部署 `httpbin`的 示例 service 。
 
 ```bash
 # Create a namespace
@@ -48,7 +48,7 @@ osm namespace add httpbin
 kubectl apply -f https://raw.githubusercontent.com/openservicemesh/osm-docs/{{< param osm_branch >}}/manifests/samples/httpbin/httpbin.yaml -n httpbin
 ```
 
-确认 `httpbin` 服务和 pod 启动并运行。
+确认 `httpbin` service 和 pod 启动并运行。
 
 ```console
 $ kubectl get pods -n httpbin
@@ -62,7 +62,7 @@ httpbin   ClusterIP   10.0.22.196   <none>        14001/TCP   11h
 
 ### HTTP 入口
 
-下一步，我们将创建对应的 Ingress 和 IngressBackend 配置，来允许外部的客户端访问位于`httpbin` 命名空间下 ，运行在 `14001` 端口上的 `httpbin` 服务。由于我们没有使用 TLS，Nginx 入口服务到 `httpbin` 后端 pod 的连接是没有进行加密。
+下一步，我们将创建对应的 Ingress 和 IngressBackend 配置，来允许外部的客户端访问位于`httpbin` 命名空间下 ，运行在 `14001` 端口上的 `httpbin` service 。由于我们没有使用 TLS，Nginx 入口 service 到 `httpbin` 后端 pod 的连接是没有进行加密。
 
 ```bash
 kubectl apply -f - <<EOF
@@ -102,7 +102,7 @@ spec:
 EOF
 ```
 
-现在，我们预期外部的客户端可以通过 HTTP 的方式访问 `httpbin` 服务：
+现在，我们预期外部的客户端可以通过 HTTP 的方式访问 `httpbin` service ：
 ```console
 $ curl -sI http://"$nginx_ingress_host":"$nginx_ingress_port"/get
 HTTP/1.1 200 OK
@@ -139,7 +139,7 @@ certificate:
 ```
 > 注意：主体备用名称（Subject Alternative Name，SAN）使用类似 `<service-account>.<namespace>.cluster.local` 格式，sevice account 和 namespace 为 Nginx service 对应的信息。
 
-接下来，我们需要创建一个 Ingress 和 IngressBackend 配置以使用 TLS 代理到后端服务，同时通过 mTLS 启用到后端的代理。为此，我们必须创建一个 IngressBackend 资源，指定指向 `httpbin` 服务的 HTTPS 入口流量只能接受来自受信任客户端的流量。OSM 使用 主体备用名称（Subject Alternative Name，SAN）`ingress-nginx.ingress-nginx.cluster.local` 为 Nginx 入口服务提供了一个客户端证书，因此 IngressBackend 配置需要引用相同的 SAN 用于 Nginx 入口服务和 `httpbin` 后端之间的 mTLS 身份验证。
+接下来，我们需要创建一个 Ingress 和 IngressBackend 配置以使用 TLS 代理到后端服务，同时通过 mTLS 启用到后端的代理。为此，我们必须创建一个 IngressBackend 资源，指定指向 `httpbin` service 的 HTTPS 入口流量只能接受来自受信任客户端的流量。OSM 使用 主体备用名称（Subject Alternative Name，SAN）`ingress-nginx.ingress-nginx.cluster.local` 为 Nginx 入口 service 提供了一个客户端证书，因此 IngressBackend 配置需要引用相同的 SAN 用于 Nginx 入口 service 和 `httpbin` 后端之间的 mTLS 身份验证。
 
 应用配置：
 
@@ -192,7 +192,7 @@ spec:
 EOF
 ```
 
-现在，我们预期外部客户端能够通过入口网关和服务后端之间的 mTLS 上的 HTTPS 代理访问 `httpbin` 服务。
+现在，我们预期外部客户端能够通过入口网关和服务后端之间的 mTLS 上的 HTTPS 代理访问 `httpbin` service 。
 ```console
 $ curl -sI http://"$nginx_ingress_host":"$nginx_ingress_port"/get
 HTTP/1.1 200 OK
