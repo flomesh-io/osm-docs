@@ -276,7 +276,7 @@ HTTP Egress 策略可以为基于 HTTP 方法、请求头和路径的细粒度�
     x-envoy-upstream-service-time: 168
     ```
 
-4. 确认 `curl` 客户端无法发送 HTTP 请求到  `http://httpbin.org:80/status/200`。
+4. 确认 `curl` 客户端无法发送 HTTP 请求到 `http://httpbin.org:80/status/200`。
 
     ```console
     $ kubectl exec $(kubectl get pod -n curl -l app=curl -o jsonpath='{.items..metadata.name}') -n curl -c curl -- curl -sI http://httpbin.org:80/status/200
@@ -304,7 +304,7 @@ HTTP Egress 策略可以为基于 HTTP 方法、请求头和路径的细粒度�
     EOF
     ```
 
-5. 确认 `curl` 客户端此时可以成功发送 HTTP 请求到  `http://httpbin.org:80/status/200`。
+5. 确认 `curl` 客户端此时可以成功发送 HTTP 请求到 `http://httpbin.org:80/status/200`。
 
     ```console
     $ kubectl exec $(kubectl get pod -n curl -l app=curl -o jsonpath='{.items..metadata.name}') -n curl -c curl -- curl -sI http://httpbin.org:80/status/200

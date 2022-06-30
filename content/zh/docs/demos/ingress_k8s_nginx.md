@@ -17,7 +17,7 @@ weight: 11
 
 ## 演示
 
-首先，明确有关 OSM 和 Nginx 的安装细节：
+首先，明确有关 OSM 和 Nginx 入口控制器的安装细节：
 
 ```bash
 osm_namespace=osm-system # Replace osm-system with the namespace where OSM is installed
@@ -35,7 +35,7 @@ nginx_ingress_port="$(kubectl -n "$nginx_ingress_namespace" get service "$nginx_
 osm namespace add "$nginx_ingress_namespace" --mesh-name "$osm_mesh_name" --disable-sidecar-injection
 ```
 
-接下来，我们将部署 `httpbin`的 示例 service 。
+接下来，我们将部署 `httpbin`的示例 service。
 
 ```bash
 # Create a namespace

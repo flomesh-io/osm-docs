@@ -66,7 +66,7 @@ weight: 21
     kubectl apply -f https://raw.githubusercontent.com/openservicemesh/osm-docs/{{< param osm_branch >}}/manifests/samples/canary/httpbin.yaml -n httpbin
     ```
 
-4. 部署 `httpbin` service 的 `v1` 版本。该 service `httpbin-v1` 使用选择器 `app: httpbin, version: v1`， 同时，该 deployment `httpbin-v1` 有标签 `app: httpbin, version: v1` ，其匹配了根 service `httpbin` 和 service `httpbin-v1` 的选择器。
+4. 部署 `httpbin` service 的 `v1` 版本。该 service `httpbin-v1` 使用选择器 `app: httpbin, version: v1`，同时，该 deployment `httpbin-v1` 有标签 `app: httpbin, version: v1` ，其匹配了根 service `httpbin` 和 service `httpbin-v1` 的选择器。
 
     ```bash
     kubectl apply -f https://raw.githubusercontent.com/openservicemesh/osm-docs/{{< param osm_branch >}}/manifests/samples/canary/httpbin-v1.yaml -n httpbin
@@ -123,7 +123,7 @@ weight: 21
     kubectl apply -f https://raw.githubusercontent.com/openservicemesh/osm-docs/{{< param osm_branch >}}/manifests/samples/canary/httpbin-v2.yaml -n httpbin
     ```
 
-9. 执行金丝雀发布 - 通过更新 SMI TrafficSplit 资源， 将发往 FQDN `httpbin.httpbin.svc.cluster.local` 的流量拆分到 `httpbin-v1` 和 `httpbin-v2` service，分别对应 `httpbin` 的 `v1` 和 `v2` 版本。。
+9. 执行金丝雀发布,通过更新 SMI TrafficSplit 资源，将发往 FQDN `httpbin.httpbin.svc.cluster.local` 的流量拆分到 `httpbin-v1` 和 `httpbin-v2` service，分别对应 `httpbin` 的 `v1` 和 `v2` 版本。。
 
     ```bash
     kubectl apply -f - <<EOF
