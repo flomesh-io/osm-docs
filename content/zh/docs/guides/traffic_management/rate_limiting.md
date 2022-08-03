@@ -11,7 +11,6 @@ weight: 12
 
 最常见的是，当大量客户端向目标主机发送流量时，如果目标主机拥堵，下游客户端将压倒上游目标主机。在这种情况下，很难在每个下游主机上配置足够严格的断路限制，以使系统在典型的请求模式下正常运行，但在系统开始出现故障时仍能防止级联故障。在这种情况下，对目标主机的流量进行限速是有效的。
 
-OSM supports server-side rate limiting per target host, also referred to as `local per-instance rate limiting`.
 OSM 支持每个目标主机的服务器端限速，也称为“本地实例限速”。
 
 ## 配置本地实例限速
