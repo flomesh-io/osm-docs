@@ -40,7 +40,7 @@ OSM 利用其 [UpstreamTrafficSetting API][1] 为发往上游服务的流量配�
 
 可以在每单位时间的 HTTP 请求。可以指定可选的突发限制，以允许突发的高于基线速率的请求来适应短时间内的请求突发。HTTP 速率限制作为令牌桶速率限制器应用在虚拟主机和/或上游后端的 HTTP 路由级别，具体取决于速率限制配置。过滤器处理的每个传入请求都需要一个令牌。如果令牌可用，则请求将被允许。如果没有可用的令牌，请求将收到配置的速率限制状态。
 
-HTTP请求限速可以在 [虚拟机](https://www.envoyproxy.io/docs/envoy/latest/api-v3/config/route/v3/route_components.proto#config-route-v3-virtualhost)级别，通过指定嵌套在 `spec.rateLimit.local.http` 字段下的速率限制属性。或者，可以通过将速率限制属性指定为 `spec.httpRoutes` 字段的一部分，为上游后端允许的每个 HTTP 路由配置速率限制。需要注意的是，在为每个 HTTP 路由配置限速时，该路由匹配一个已经被服务网格策略允许的 HTTP 路径，否则将忽略限速策略。
+HTTP 请求限速可以在 [虚拟机](https://www.envoyproxy.io/docs/envoy/latest/api-v3/config/route/v3/route_components.proto#config-route-v3-virtualhost)级别，通过指定嵌套在 `spec.rateLimit.local.http` 字段下的速率限制属性。或者，可以通过将速率限制属性指定为 `spec.httpRoutes` 字段的一部分，为上游后端允许的每个 HTTP 路由配置速率限制。需要注意的是，在为每个 HTTP 路由配置限速时，该路由匹配一个已经被服务网格策略允许的 HTTP 路径，否则将忽略限速策略。
 
 可以为 HTTP 流量配置以下速率限制属性：
 
