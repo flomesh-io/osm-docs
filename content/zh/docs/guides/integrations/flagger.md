@@ -8,7 +8,7 @@ weight: 4
 
 # Flagger 与 OSM 集成
 
-围绕 OSM 使用[Service Mesh Interface](smi-spec.io) [Traffic Split](https://github.com/servicemeshinterface/smi-spec/blob/v0.6.0/apis/traffic-split/v1alpha4/traffic-split.md)额外添加的自动化功能，OSM 提供了与 [WeaveWorks](https://www.weave.works/) 开发的 [Flagger](https://www.weave.works/oss/flagger/) 项目的集成。
+围绕 OSM 使用[Service Mesh Interface](smi-spec.io) [Traffic Split](https://github.com/servicemeshinterface/smi-spec/blob/v0.6.0/apis/traffic-split/v1alpha4/traffic-split.md) 额外添加的自动化功能，OSM 提供了与 [WeaveWorks](https://www.weave.works/) 开发的 [Flagger](https://www.weave.works/oss/flagger/) 项目的集成。
 
 "Flagger 是一个渐进式的交付工具，让 Kubernetes 上的应用的发布过程自动化。它通过在测量指标和运行一致性测试的同时逐渐将流量转移到新版本来降低在生产中引入新版本的风险。" [[1]](#1)
 

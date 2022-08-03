@@ -96,7 +96,7 @@ Service is alive
 
 1. 确保不健康的 osm-controller 或 osm-injector Pod 没有运行 Envoy sidecar 容器。
 
-    为了验证OSM-controller Pod没有运行Envoy sidecar容器，请验证该Pod的容器镜像中没有一个是Envoy镜像。Envoy镜像的名字里有 "envoyproxy/envoy"。
+    为了验证 OSM-controller Pod 没有运行 Envoy sidecar 容器，请验证该 Pod 的容器镜像中没有一个是 Envoy 镜像。Envoy 镜像的名字里有 "envoyproxy/envoy"。
 
     例如，这是一个包含 Envoy 容器的 osm-controller Pod：
 

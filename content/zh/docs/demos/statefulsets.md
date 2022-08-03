@@ -250,4 +250,4 @@ kafka-console-producer.sh --broker-list kafka-0.kafka-headless.kafka.svc.cluster
 kafka-console-consumer.sh --bootstrap-server kafka.kafka.svc.cluster.local:9092 --topic test --from-beginning
 ```
 
-运行此命令时，可能会看到类似错误的消息，但这些最有可能是 [Kakfa 代理重新平衡](https://stackoverflow.com/questions/30988002/what-does-rebalancing-mean-in-apache-kafka-context) 的现象，是一个完全正常的过程。无论哪种方式，应该很快就会看到“hello”和“world”消息出现在 shell 中，由换行符分隔。恭喜！刚刚在 Kubernetes 中运行了 2 个有状态应用程序，使用 OSM 的 mTLS 透明地保护所有组件之间的通信。
+运行此命令时，可能会看到类似错误的消息，但这些最有可能是 [Kakfa 代理重新平衡](https://stackoverflow.com/questions/30988002/what-does-rebalancing-mean-in-apache-kafka-context) 的现象，是一个完全正常的过程。无论哪种方式，应该很快就会看到 “hello” 和 “world” 消息出现在 shell 中，由换行符分隔。恭喜！刚刚在 Kubernetes 中运行了 2 个有状态应用程序，使用 OSM 的 mTLS 透明地保护所有组件之间的通信。

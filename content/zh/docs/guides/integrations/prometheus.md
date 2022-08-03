@@ -63,7 +63,7 @@ To familiarize yourself on how OSM works with Prometheus, try installing a new m
 
 1. 生成流量：
 
-   下面的命令让 curl Pod 来不停地以每秒1个请求的速度访问 httpbin Pod。
+   下面的命令让 curl Pod 来不停地以每秒 1 个请求的速度访问 httpbin Pod。
 
    ```console
    $ kubectl exec -n metrics-demo -ti "$(kubectl get pod -n metrics-demo -l app=curl -o jsonpath='{.items[0].metadata.name}')" -c curl -- sh -c 'while :; do curl -i httpbin.metrics-demo:14001/status/200; sleep 1; done'

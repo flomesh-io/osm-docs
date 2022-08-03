@@ -79,7 +79,7 @@ ERROR: response code for "http://bookstore.bookstore:14001/books-bought" is 403;
 ...
 ```
 
-- 要进一步验证外部授权是否有效，请验证 `opa-envoy-plugin` 实例的日志。实例的日志应该包含 json blob，它记录收到的每个请求的评估 - 键值`result`应该出现在由提供给 `opa-envoy-plugin` 实例的配置所采取的授权结果中：
+- 要进一步验证外部授权是否有效，请验证 `opa-envoy-plugin` 实例的日志。实例的日志应该包含 json blob，它记录收到的每个请求的评估 - 键值 `result` 应该出现在由提供给 `opa-envoy-plugin` 实例的配置所采取的授权结果中：
 ```
 kubectl logs <opa_pod_name> -n opa
 ...
@@ -109,7 +109,7 @@ default allow = true
 kubectl rollout restart deployment opa -n opa
 ```
 
-- 验证对`bookbuyer`服务的请求现在是否已获得授权：
+- 验证对 `bookbuyer` 服务的请求现在是否已获得授权：
 ```
 --- bookbuyer:[ 2663 ] -----------------------------------------
 

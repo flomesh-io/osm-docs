@@ -135,7 +135,7 @@ weight: 2
 
    为 pod 添加注解可以排除 Dapr 的 api（`dapr-api`） 和 sendtry（`dapr-sentry`） 的端口，防止被 OSM sidecar 拦截。因为这些 pod 需要与 Dapr 的控制平面通信。
 
-7. 将 Dapr hello-kubernetes 演示所在的命名空间加入到OSM 网格中：
+7. 将 Dapr hello-kubernetes 演示所在的命名空间加入到 OSM 网格中：
 
    ```console
    $ osm namespace add dapr-test
@@ -166,7 +166,7 @@ weight: 2
    deployment.apps "pythonapp" created
    ```
 
-   pythonapp 和 nodeapp pod 重启后都会有 3个容器，表示 OSM sidecar 已经成功注入。
+   pythonapp 和 nodeapp pod 重启后都会有 3 个容器，表示 OSM sidecar 已经成功注入。
 
    ```console
    $ kubectl get pods -n dapr-test
@@ -180,7 +180,7 @@ weight: 2
 
 9. 验证 Dapr hello-kubernetes 演示如预期工作：
 
-   1. 使用  [这篇](https://github.com/dapr/quickstarts/tree/master/hello-kubernetes#step-3---deploy-the-nodejs-app-with-the-dapr-sidecar) 文档中的步骤验证 nodeapp 服务。
+   1. 使用[这篇](https://github.com/dapr/quickstarts/tree/master/hello-kubernetes#step-3---deploy-the-nodejs-app-with-the-dapr-sidecar) 文档中的步骤验证 nodeapp 服务。
 
    2. 使用[这篇](https://github.com/dapr/quickstarts/tree/master/hello-kubernetes#step-6---observe-messages)文章验证 pythonapp。
 
