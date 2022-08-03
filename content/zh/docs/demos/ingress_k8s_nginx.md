@@ -13,7 +13,7 @@ weight: 11
 - Kubernetes 集群运行版本 {{< param min_k8s_version >}} 或者更高。
 - 使用 `kubectl` 与 API server 交互。
 - 已安装的 OSM 版本不低于 v0.10.0。
-- 已安装 `osm`  命令行工具，用于管理服务网格。
+- 已安装 `osm` 命令行工具，用于管理服务网格。
 
 ## 演示
 
@@ -35,7 +35,7 @@ nginx_ingress_port="$(kubectl -n "$nginx_ingress_namespace" get service "$nginx_
 osm namespace add "$nginx_ingress_namespace" --mesh-name "$osm_mesh_name" --disable-sidecar-injection
 ```
 
-接下来，我们将部署 `httpbin`的示例 service。
+接下来，我们将部署 `httpbin` 的示例 service。
 
 ```bash
 # Create a namespace
@@ -62,7 +62,7 @@ httpbin   ClusterIP   10.0.22.196   <none>        14001/TCP   11h
 
 ### HTTP 入口
 
-下一步，我们将创建对应的 Ingress 和 IngressBackend 配置，来允许外部的客户端访问位于`httpbin` 命名空间下 ，运行在 `14001` 端口上的 `httpbin` service 。由于我们没有使用 TLS，Nginx 入口 service 到 `httpbin` 后端 pod 的连接是没有进行加密。
+下一步，我们将创建对应的 Ingress 和 IngressBackend 配置，来允许外部的客户端访问位于 `httpbin` 命名空间下 ，运行在 `14001` 端口上的 `httpbin` service 。由于我们没有使用 TLS，Nginx 入口 service 到 `httpbin` 后端 pod 的连接是没有进行加密。
 
 ```bash
 kubectl apply -f - <<EOF
@@ -205,7 +205,7 @@ access-control-allow-credentials: true
 x-envoy-upstream-service-time: 2
 ```
 
-为了验证未经授权的客户端是无权访问后端，我们可以更新 IngressBackend 配置中 `sources` 指定的内容。。让我们将主题更新为 Nginx 客户端证书中编码的 SAN 以外的其他内容。
+为了验证未经授权的客户端是无权访问后端，我们可以更新 IngressBackend 配置中 `sources` 指定的内容。让我们将主题更新为 Nginx 客户端证书中编码的 SAN 以外的其他内容。
 
 ```bash
 kubectl apply -f - <<EOF

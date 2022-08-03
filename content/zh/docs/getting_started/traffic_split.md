@@ -47,7 +47,7 @@ kubectl apply -f https://raw.githubusercontent.com/openservicemesh/osm-docs/{{< 
 
 _注意：根服务是个 Kubernetes 服务，其标签选择器需要与叶子服务相匹配。在本示例中，根服务 `bookstore` 使用 `app:bookstore` 选择器分别匹配 `bookstore (v1)` 和 `bookstore-v2` deployment 的标签 `app:bookstore,version:v1` 和 `app:bookstore,version=v2`。在 SMI 流量拆分里，根服务能够作为有或者没有 `.<namespace>` 后缀的服务名称被引用。_
 
-对于书籍销售的计数，从 `bookstore-v2` 浏览器窗口看应该保持在 0。这是因为当前的流量拆分策略是当前权重 100 是给了 `bookstore`，另外 `bookbuyer` 正发送流量到 `bookstore` 服务而没有应用发送请求到 `bookstore-v2` 服务。可以通过运行下面命令并同时观察**Backends**的属性来验证流量拆分策略。
+对于书籍销售的计数，从 `bookstore-v2` 浏览器窗口看应该保持在 0。这是因为当前的流量拆分策略是当前权重 100 是给了 `bookstore`，另外 `bookbuyer` 正发送流量到 `bookstore` 服务而没有应用发送请求到 `bookstore-v2` 服务。可以通过运行下面命令并同时观察 **Backends** 的属性来验证流量拆分策略。
 
 ```bash
 kubectl describe trafficsplit bookstore-split -n bookstore

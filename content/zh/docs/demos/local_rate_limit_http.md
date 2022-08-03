@@ -58,7 +58,7 @@ weight: 23
     fortio-client-b9b7bbfb8-prq7r   2/2     Running   0          7s
     ```
 
-1. 确认 `fortio-client` 应用程序能够成功地向端口 `8080` 上的 `fortio` HTTP 服务发出 HTTP 请求。我们用 `3` 并发连接 (`-c 3`) 调用`fortio` 服务并发送`10` 个请求(`-n 10`)。
+1. 确认 `fortio-client` 应用程序能够成功地向端口 `8080` 上的 `fortio` HTTP 服务发出 HTTP 请求。我们用 `3` 并发连接 (`-c 3`) 调用 `fortio` 服务并发送 `10` 个请求 (`-n 10`)。
     ```console
     $ fortio_client="$(kubectl get pod -n demo -l app=fortio-client -o jsonpath='{.items[0].metadata.name}')"
 
@@ -257,7 +257,7 @@ weight: 23
     ```
 
 1. 接下来，让我们为上游服务允许的特定 HTTP 路由配置速率限制策略。
-     > 注意：由于我们在demo中使用的是宽松流量策略模式，因此上游后端允许使用通配符路径正则表达式`.*`的 HTTP 路由，因此我们将为此路由配置限速策略。但是，当在网格中使用 SMI 策略时，可以配置与匹配允许的 SMI HTTP 路由规则相对应的路径。
+     > 注意：由于我们在 demo 中使用的是宽松流量策略模式，因此上游后端允许使用通配符路径正则表达式 `.*` 的 HTTP 路由，因此我们将为此路由配置限速策略。但是，当在网格中使用 SMI 策略时，可以配置与匹配允许的 SMI HTTP 路由规则相对应的路径。
 
     ```bash
     kubectl apply -f - <<EOF

@@ -54,7 +54,7 @@ export ingress_host="$(kubectl -n "$osm_namespace" get service osm-contour-envoy
 export ingress_port="$(kubectl -n "$osm_namespace" get service osm-contour-envoy -o jsonpath='{.spec.ports[?(@.name=="http")].port}')"
 ```
 
-接下来，我们将部署 `httpbin`的 示例 service 。
+接下来，我们将部署 `httpbin` 的 示例 service 。
 
 ```bash
 # Create a namespace
@@ -81,7 +81,7 @@ httpbin   ClusterIP   10.0.22.196   <none>        14001/TCP   11h
 
 ### HTTP Ingress
 
-下一步，我们将创建对应的 Ingress 和 IngressBackend 配置，来允许外部的客户端访问位于`httpbin` 命名空间下 ，运行在 `14001` 端口上的 `httpbin` service 。由于我们没有使用 TLS，Contour 入口网关到 `httpbin` 后端 pod 的连接是没有进行加密。
+下一步，我们将创建对应的 Ingress 和 IngressBackend 配置，来允许外部的客户端访问位于 `httpbin` 命名空间下 ，运行在 `14001` 端口上的 `httpbin` service 。由于我们没有使用 TLS，Contour 入口网关到 `httpbin` 后端 pod 的连接是没有进行加密。
 
 ```bash
 kubectl apply -f - <<EOF
@@ -213,7 +213,7 @@ x-envoy-upstream-service-time: 3
 vary: Accept-Encoding
 ```
 
-为了验证未经授权的客户端是无权访问后端，我们可以更新 IngressBackend 配置中 `sources` 指定的内容。 改成与入口网关中编码的 SAN 不同的内容：
+为了验证未经授权的客户端是无权访问后端，我们可以更新 IngressBackend 配置中 `sources` 指定的内容。改成与入口网关中编码的 SAN 不同的内容：
 
 ```bash
 kubectl apply -f - <<EOF

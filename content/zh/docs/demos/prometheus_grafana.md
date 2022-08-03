@@ -7,7 +7,7 @@ weight: 25
 
 # 将 OSM 与自维护的 Prometheus 和 Grafana 集成
 
-本文为你展示如何在集群中创建自行维护的 Prometheus 和 Grafana ，并为其配置以实现对 OSM 的可观测性和监控。有关使用 OSM 自动配置 Prometheus 和 Grafana 的示例，请参阅 [Observability](https://docs.openservicemesh.io/docs/getting_started/observability/)  入门指南。
+本文为你展示如何在集群中创建自行维护的 Prometheus 和 Grafana ，并为其配置以实现对 OSM 的可观测性和监控。有关使用 OSM 自动配置 Prometheus 和 Grafana 的示例，请参阅 [Observability](https://docs.openservicemesh.io/docs/getting_started/observability/) 入门指南。
 
 > 重要提示：本文创建的配置不应在生产环境中使用。对于生产级部署，请参阅 [Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/user-guides/getting-started.md) 和 [Deploy Grafana in Kubernetes](https://grafana.com/docs/grafana/latest/installation/kubernetes/)。
 
@@ -42,7 +42,7 @@ stable-prometheus-server.metrics.svc.cluster.local
 
 ## 为 OSM 配置 Prometheus
 
-Prometheus 需要对 OSM 端点进行抓取配置，并对应地处理 OSM 的标记、重新标记和端点配置。此配置还有助于 OSM Grafana 仪表板 正确显示从 OSM 抓取的数据 （OSM Grafana 仪表板会在后续步骤中配置）
+Prometheus 需要对 OSM 端点进行抓取配置，并对应地处理 OSM 的标记、重新标记和端点配置。此配置还有助于 OSM Grafana 仪表板正确显示从 OSM 抓取的数据（OSM Grafana 仪表板会在后续步骤中配置）
 
 使用 `kubectl get configmap` 来验证 `stable-prometheus-server` configmap 是否已创建。 例如：
 

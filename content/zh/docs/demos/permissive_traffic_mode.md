@@ -39,7 +39,7 @@ weight: 1
     kubectl apply -f https://raw.githubusercontent.com/openservicemesh/osm-docs/{{< param osm_branch >}}/manifests/samples/httpbin/httpbin.yaml -n httpbin
     ```
 
-    确认 `httpbin` service 和pod 启动并运行。
+    确认 `httpbin` service 和 pod 启动并运行。
 
     ```console
     $ kubectl get svc -n httpbin
@@ -88,7 +88,7 @@ weight: 1
     x-envoy-upstream-service-time: 2
     ```
 
-    `200 OK` 响应表示 `curl` 客户端访问`httpbin` service 成功。
+    `200 OK` 响应表示 `curl` 客户端访问 `httpbin` service 成功。
 
 5. 确认在禁用宽松流量模式后 HTTP 请求失败。
 

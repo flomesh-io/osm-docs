@@ -94,7 +94,7 @@ spec:
 EOF
 ```
 
-请注意，创建了 2 个不同的 `TCPRoute`：一个用于 Zookeeper 之间的通信（允许 4 个端口），另一个用于 Zookeeper 实例外部的客户端（仅允许 2 个端口）。然后，我们依次创建 2 个不同的流量目标。同样，一个用于 Zookeeper 内部流量，另一个用于外部客户端（例如“kafka”命名空间中的“kafka”ServiceAccount）。
+请注意，创建了 2 个不同的 `TCPRoute`：一个用于 Zookeeper 之间的通信（允许 4 个端口），另一个用于 Zookeeper 实例外部的客户端（仅允许 2 个端口）。然后，我们依次创建 2 个不同的流量目标。同样，一个用于 Zookeeper 内部流量，另一个用于外部客户端（例如 “kafka” 命名空间中的 “kafka” ServiceAccount）。
 
 现在我们已经准备好了流量策略，接下来准备安装 Zookeeper。这个演示中，我们将利用 Bitnami 发布的 Helm chart，在我们新的 `zookeeper` 命名空间中执行 Helm 安装：
 
@@ -244,7 +244,7 @@ kafka-console-producer.sh --broker-list kafka-0.kafka-headless.kafka.svc.cluster
 > world
 ```
 
-太好了 - 已经向集群内的 Kafka 代理发送了两条 Kafka 消息：“hello”和“world”。现在，按 Ctrl-C 几次以退出 Kafka 提示符并返回 bash shell。现在让我们启动一个 Kafka 消费者来读取我们刚刚编写的消息。 在该 bash shell 中，运行以下命令：
+太好了 - 已经向集群内的 Kafka 代理发送了两条 Kafka 消息：“hello” 和 “world”。现在，按 Ctrl-C 几次以退出 Kafka 提示符并返回 bash shell。现在让我们启动一个 Kafka 消费者来读取我们刚刚编写的消息。 在该 bash shell 中，运行以下命令：
 
 ```shell
 kafka-console-consumer.sh --bootstrap-server kafka.kafka.svc.cluster.local:9092 --topic test --from-beginning

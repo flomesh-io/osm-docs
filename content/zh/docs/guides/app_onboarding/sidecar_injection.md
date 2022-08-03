@@ -9,7 +9,7 @@ weight: 3
 服务网格中的服务通过安装在 pod 中的 sidecar 进行通信。下面的章节描述了 OSM 中的 sidecar 注入流程。
 
 ## Sidecar 自动注入
-目前网格中注入sidecar 的唯一方式就是自动注入。由 OSM 提供的修改性质的 web 准入控制器将 sidecar 自动注入到应用程序 Kubernetes Pod 中。
+目前网格中注入 sidecar 的唯一方式就是自动注入。由 OSM 提供的修改性质的 web 准入控制器将 sidecar 自动注入到应用程序 Kubernetes Pod 中。
 
 Sidecar 的自动注入可以被以每个命名空间来配置作为注册命名空间到网格的一部分，也可以随后通过 Kubernetes API 完成。通过使用 sidecar 注入注解对命名空间或 pod 资源进行注释，可以在每个命名空间或每个 pod 上启用自动 sidecar 注入。单个 pod 和命名空间可以显式配置为启用或禁用自动 sidecar 注入，从而使用户可以灵活地控制 pod 和命名空间上的 sidecar 注入。
 
@@ -25,7 +25,7 @@ Sidecar 注入可以通过如下方式启用：
 
 - 使用 `osm` 命令行工具 `osm namespace add <namespace>` 将命名空间注册到网格时，该命令会默认启用 sidecar 的自动注入。
 
-- 使用 `kubectl` 来注释单个命名空间或者 pod 来启用 siecar 注入：
+- 使用 `kubectl` 来注释单个命名空间或者 pod 来启用 sidecar 注入：
 
   ```console
   # Enable sidecar injection on a namespace

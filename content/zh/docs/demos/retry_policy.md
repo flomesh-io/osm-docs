@@ -93,7 +93,7 @@ weight: 15
     EOF
     ```
 
-1. 从 `curl` pod 发送一个回返回 `503` 响应的请求到 `httpbin` 服务。
+1. 从 `curl` pod 发送一个会返回 `503` 响应的请求到 `httpbin` 服务。
     ```bash
     kubectl exec deploy/curl -n curl -c curl -- curl -sI httpbin.httpbin.svc.cluster.local:14001/status/503
     ```

@@ -47,7 +47,7 @@ weight: 15
 
 ## HTTP 出口
 
-1. 确认 `curl` 客户端无法发送请求 `http://httpbin.org:80/get` 到网站 `httpbin.org`的 `80` 端口。
+1. 确认 `curl` 客户端无法发送请求 `http://httpbin.org:80/get` 到网站 `httpbin.org` 的 `80` 端口。
     ```console
     $ kubectl exec $(kubectl get pod -n curl -l app=curl -o jsonpath='{.items..metadata.name}') -n curl -c curl -- curl -sI http://httpbin.org:80/get
     command terminated with exit code 7
@@ -104,7 +104,7 @@ weight: 15
 
 由于 HTTPS 流量使用 TLS 加密，OSM 通过将基于 HTTPS 的流量作为 TCP 流代理到其原始目的地来路由。在 TSL 握手时，HTTPS 客户端应用的服务器名称标识（SNI）与出口策略中指定的域名匹配。
 
-1. 确认 `curl` 客户端无法发送HTTPS请求 `http://httpbin.org:80/get` 到网站 `httpbin.org`的 `443` 端口。
+1. 确认 `curl` 客户端无法发送 HTTPS 请求 `http://httpbin.org:80/get` 到网站 `httpbin.org` 的 `443` 端口。
 
     ```console
     $ kubectl exec $(kubectl get pod -n curl -l app=curl -o jsonpath='{.items..metadata.name}') -n curl -c curl -- curl -sI https://httpbin.org:443/get
@@ -217,7 +217,7 @@ weight: 15
 
 HTTP Egress 策略可以为基于 HTTP 方法、请求头和路径的细粒度流量控制指定 SMI HTTPRouteGroup 匹配。
 
-1. 确认 `curl` 客户端无法发送 HTTP 请求 `http://httpbin.org:80/get` 和 `http://httpbin.org:80/status/200` 到网站 `httpbin.org`  的`80` 端口。
+1. 确认 `curl` 客户端无法发送 HTTP 请求 `http://httpbin.org:80/get` 和 `http://httpbin.org:80/status/200` 到网站 `httpbin.org`  的 `80` 端口。
 
     ```console
     $ kubectl exec $(kubectl get pod -n curl -l app=curl -o jsonpath='{.items..metadata.name}') -n curl -c curl -- curl -sI http://httpbin.org:80/get

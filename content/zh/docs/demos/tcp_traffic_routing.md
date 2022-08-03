@@ -24,7 +24,7 @@ weight: 20
     osm_namespace=osm-system  # Replace osm-system with the namespace where OSM is installed if different
     ```
 
-2. 在 `tcp-demo` 命名空间下部署 `tcp-demo` service 。 `tcp-demo` service 运行在 `9000` 端口上，同时 `appProtocol` 属性设置为 `tcp`， 用来告知 OSM： 在将流量定向到 `tcp-demo` 的 `9000` 端口时，必须使用 TCP路由。
+2. 在 `tcp-demo` 命名空间下部署 `tcp-demo` service 。 `tcp-demo` service 运行在 `9000` 端口上，同时 `appProtocol` 属性设置为 `tcp`， 用来告知 OSM： 在将流量定向到 `tcp-demo` 的 `9000` 端口时，必须使用 TCP 路由。
     ```bash
     # Create the tcp-demo namespace
     kubectl create namespace tcp-demo
@@ -36,7 +36,7 @@ weight: 20
     kubectl apply -f https://raw.githubusercontent.com/openservicemesh/osm-docs/{{< param osm_branch >}}/manifests/apps/tcp-echo.yaml -n tcp-demo
     ```
 
-    确认  `tcp-echo`  service 和 pod 启动并运行。
+    确认 `tcp-echo` service 和 pod 启动并运行。
 
     ```console
     $ kubectl get svc,po -n tcp-demo
@@ -95,7 +95,7 @@ weight: 20
     kubectl patch meshconfig osm-mesh-config -n "$osm_namespace" -p '{"spec":{"traffic":{"enablePermissiveTrafficPolicyMode":false}}}' --type=merge
     ```
 
-2. 在缺少 SMI 策略的情况下，确认`curl` 客户端无法发送请求到 `tcp-echo` service ，也无法接收响应。
+2. 在缺少 SMI 策略的情况下，确认 `curl` 客户端无法发送请求到 `tcp-echo` service ，也无法接收响应。
     ```console
     $ kubectl exec -n curl -ti "$(kubectl get pod -n curl -l app=curl -o jsonpath='{.items[0].metadata.name}')" -c curl -- sh -c 'echo hello | nc tcp-echo.tcp-demo 9000'
     command terminated with exit code 1

@@ -13,7 +13,7 @@ weight: 5
 
 2. 配置并安装 [服务网格接口 (Service Mesh Interface，SMI) 策略](https://github.com/servicemeshinterface/smi-spec)。
 
-    OSM 符合 SMI 规范，默认情况下，OSM 禁止 Kubernetes 服务间的通信，除非显式地通过 SMI 策略来允许。这种行为可以通过在 `osm install` 时指定 `--set=osm.enablePermissiveTrafficPolicy=true` 参数来覆盖，允许不执行SMI策略，同时允许流量和服务仍然利用诸如mTLS加密流量、指标和跟踪等功能。。
+    OSM 符合 SMI 规范，默认情况下，OSM 禁止 Kubernetes 服务间的通信，除非显式地通过 SMI 策略来允许。这种行为可以通过在 `osm install` 时指定 `--set=osm.enablePermissiveTrafficPolicy=true` 参数来覆盖，允许不执行 SMI 策略，同时允许流量和服务仍然利用诸如 mTLS 加密流量、指标和跟踪等功能。。
 
     SMI 策略的例子，请参阅以下示例：
     - [demo/deploy-traffic-specs.sh](https://github.com/openservicemesh/osm/blob/{{< param osm_branch >}}/demo/deploy-traffic-specs.sh)

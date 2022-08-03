@@ -9,7 +9,7 @@ weight: 5
 
 接下来的文章展示了如何安装自带 Prometheus 和 Grafana 栈的 OSM，从而具备可观测性和监视能力。对于使用在集群上自有的 Prometheus 和 Grafana 栈协同 OSM 的例子，请参阅[集成 OSM 到 Prometheus 和 Grafana](https://docs.openservicemesh.io/docs/demos/prometheus_grafana/)示例。
 
-在这篇文章中所创建的配置不应该被用于产品环境。对于产品级的部署，请参阅[Prometheus 运维](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/user-guides/getting-started.md)和[在 Kubernetes 中部署 Grafana](https://grafana.com/docs/grafana/latest/installation/kubernetes/)。
+在这篇文章中所创建的配置不应该被用于产品环境。对于产品级的部署，请参阅 [Prometheus 运维](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/user-guides/getting-started.md)和[在 Kubernetes 中部署 Grafana](https://grafana.com/docs/grafana/latest/installation/kubernetes/)。
 
 
 ## 安装带 Prometheus 和 Grafana 的 OSM

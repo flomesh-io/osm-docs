@@ -70,7 +70,7 @@ spec:
 
 Kubenetes service 资源需要使用 `appProtocol` 字段为端口显式地指定应用协议。
 
-由service account `sa-1` 中的 pod 支持的服务 `service-1` 服务于 `http` 应用流量应按照如下定义：
+由 service account `sa-1` 中的 pod 支持的服务 `service-1` 服务于 `http` 应用流量应按照如下定义：
 
 ```yaml
 kind: Service

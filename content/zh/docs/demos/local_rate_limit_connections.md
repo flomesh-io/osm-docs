@@ -58,7 +58,7 @@ weight: 22
     fortio-client-b9b7bbfb8-prq7r   2/2     Running   0          7s
     ```
 
-1. 确认 `fortio-client` 应用程序能够成功建立 TCP 连接并将数据发送到端口 `8078` 上的 `frotio` `TCP echo` 服务。我们使用 `3` 并发连接 (`-c 3`) 调用`fortio` 服务并发送`10` 次调用(`-n 10`)。
+1. 确认 `fortio-client` 应用程序能够成功建立 TCP 连接并将数据发送到端口 `8078` 上的 `frotio` `TCP echo` 服务。我们使用 `3` 并发连接 (`-c 3`) 调用 `fortio` 服务并发送 `10` 次调用 (`-n 10`)。
     ```console
     $ fortio_client="$(kubectl get pod -n demo -l app=fortio-client -o jsonpath='{.items[0].metadata.name}')"
 

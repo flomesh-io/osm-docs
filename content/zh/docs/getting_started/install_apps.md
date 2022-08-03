@@ -49,7 +49,7 @@ kubectl create namespace bookwarehouse
 osm namespace add bookstore bookbuyer bookthief bookwarehouse
 ```
 
-现在，这四个命名空间的每一个都被标注了 `openservicemesh.io/monitored-by: osm`，并且加了 `openservicemesh.io/sidecar-injection: enabled` 注解。OSM控制器，注意到了这些命名空间上的标注和注解，将开始为这些**新** Pod 注入 Envoy sidecar。
+现在，这四个命名空间的每一个都被标注了 `openservicemesh.io/monitored-by: osm`，并且加了 `openservicemesh.io/sidecar-injection: enabled` 注解。OSM 控制器，注意到了这些命名空间上的标注和注解，将开始为这些**新** Pod 注入 Envoy sidecar。
 
 ### 创建 Pod，服务，服务账号
 
