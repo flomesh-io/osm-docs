@@ -12,14 +12,14 @@ weight: 21
 - Kubernetes 集群运行版本 {{< param min_k8s_version >}} 或者更高。
 - 已安装 OSM。
 - 使用 `kubectl` 与 API server 交互。
-- 已安装 `osm`  命令行工具，用于管理服务网格。
+- 已安装 `osm` 命令行工具，用于管理服务网格。
 
 
 ## 演示
 
 在此演示中，我们将部署一个 HTTP 应用程序并执行金丝雀发布，其中新版本部署的应用程序，会以一定百分比的流量提供服务。
 
-为了拆分流量到多个服务后端，需要使用 [SMI 流量拆分 API](https://github.com/servicemeshinterface/smi-spec/blob/main/apis/traffic-split/v1alpha2/traffic-split.md) 。关于 API 使用的更多说明，可以查看 [流量拆分指南](/docs/guides/traffic_management/traffic_split)。为了将客户端流量透明地拆分到多个服务后端，客户端需要使用 `TrafficSplit` 资源中指定的根 service 的 FQDN 来发送流量。在该演示中，`curl` 客户端发送流量到根 service  `httpbin.org`，该 service 初始化有 `v1` 版本，然后执行金丝雀发布，将部分流量定向到 `v2` 版本的 service 中。
+为了拆分流量到多个服务后端，需要使用 [SMI 流量拆分 API](https://github.com/servicemeshinterface/smi-spec/blob/main/apis/traffic-split/v1alpha2/traffic-split.md) 。关于 API 使用的更多说明，可以查看 [流量拆分指南](/docs/guides/traffic_management/traffic_split)。为了将客户端流量透明地拆分到多个服务后端，客户端需要使用 `TrafficSplit` 资源中指定的根 service 的 FQDN 来发送流量。在该演示中，`curl` 客户端发送流量到根 service `httpbin.org`，该 service 初始化有 `v1` 版本，然后执行金丝雀发布，将部分流量定向到 `v2` 版本的 service 中。
 
 以下步骤演示了金丝雀发布的部署策略。
 
@@ -168,4 +168,4 @@ weight: 21
     pod: httpbin-v1-77c99dccc9-q2gvt
     ```
 
-   上面的结果显示所有 10个请求都收到 HTTP 200 OK 的响应，基于 `TrafficSplit` 中配置的权重， `httpbin-v1` 和 `httpbin-v2` 各响应了 5个请求。
+   上面的结果显示所有 10 个请求都收到 HTTP 200 OK 的响应，基于 `TrafficSplit` 中配置的权重， `httpbin-v1` 和 `httpbin-v2` 各响应了 5 个请求。

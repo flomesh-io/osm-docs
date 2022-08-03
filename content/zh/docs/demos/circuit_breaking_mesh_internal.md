@@ -12,7 +12,7 @@ weight: 21
 - Kubernetes 集群运行版本 {{< param min_k8s_version >}} 或者更高。
 - 已安装 OSM。
 - 使用 `kubectl` 与 API server 交互。
-- 已安装 `osm`  命令行工具，用于管理服务网格。
+- 已安装 `osm` 命令行工具，用于管理服务网格。
 - OSM 版本高于 v1.1.0
 
 
@@ -20,7 +20,7 @@ weight: 21
 
 下面的演示展示了一个负载测试客户端 [fortio](https://github.com/fortio/fortio) 向 `httpbin` service 发送流量。 我们将看到当配置的熔断限制触发时，为 `httpbin` service 配置的流量应用熔断器是如何影响 `fortio` 客户端。
 
-1. 为简单起见，启用 [permissive traffic policy mode](/docs/guides/traffic_management/permissive_mode) 以便网格内的应用程序连接，而不需要显式配置 SMI 流量访问策略。
+1. 为简单起见，启用 [宽松流量策略模式](/docs/guides/traffic_management/permissive_mode) 以便网格内的应用程序连接，而不需要显式配置 SMI 流量访问策略。
 
     ```bash
     export osm_namespace=osm-system # Replace osm-system with the namespace where OSM is installed

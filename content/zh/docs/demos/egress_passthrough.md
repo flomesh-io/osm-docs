@@ -57,7 +57,7 @@ weight: 16
     access-control-allow-credentials: true
     ```
 
-    `200 OK` 响应说明 `curl` 客户端请求 `httpbin.org` 网站的HTTPS请求成功了。
+    `200 OK` 响应说明 `curl` 客户端请求 `httpbin.org` 网站的 HTTPS 请求成功了。
 
 4. 当网格出口禁用，确认 HTTPS 请求失败。
 

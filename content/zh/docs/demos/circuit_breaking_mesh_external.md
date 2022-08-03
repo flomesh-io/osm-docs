@@ -12,13 +12,13 @@ weight: 22
 - Kubernetes 集群运行版本 {{< param min_k8s_version >}} 或者更高。
 - 已安装 OSM。
 - 使用 `kubectl` 与 API server 交互。
-- 已安装 `osm`  命令行工具，用于管理服务网格。
+- 已安装 `osm` 命令行工具，用于管理服务网格。
 - OSM 版本不低于 v1.1.0
 
 
 ## 演示
 
-下面的演示展示了一个负载测试客户端 [fortio](https://github.com/fortio/fortio) 将流量发送到服务网格的外部 service `httpbin` 。发送到网格服务外的流量被认为是 [出口](/docs/guides/traffic_management/egress) 流量, 其会被  [Egress traffic policy](/docs/guides/traffic_management/egress/#1-configuring-egress-policies) 进行授权。我们将看到为外部 `httpbin` service 配置的流量熔断器被触发后，是如何影响 `fortio` 客户端。
+下面的演示展示了一个负载测试客户端 [fortio](https://github.com/fortio/fortio) 将流量发送到服务网格的外部 service `httpbin` 。发送到网格服务外的流量被认为是 [出口](/docs/guides/traffic_management/egress) 流量, 其会被  [出口流量策略](/docs/guides/traffic_management/egress/#1-configuring-egress-policies) 进行授权。我们将看到为外部 `httpbin` service 配置的流量熔断器被触发后，是如何影响 `fortio` 客户端。
 
 1. 部署 `httpbin` service 到 `httpbin` 命名空间。`httpbin` service 运行在 `14001` 端口，且没有纳入网格管理，因此可以看成是网格外部的服务。
 
@@ -119,7 +119,7 @@ weight: 22
     Code 200 : 50 (100.0 %)
     ```
 
-5. 使用`UpstreamTrafficSetting`资源为请求到外部域名`httpbin.httpbin.svc.cluster.local`的流量应用配置熔断器，并将最大并发连接数和请求数限制为`1`。为外部（出口）流量应用 `UpstreamTrafficSetting` 配置时，`UpstreamTrafficSetting` 资源还必须在 `Egress` 配置中指定为匹配项，并且与匹配的 `Egress` 资源属于同一命名空间。这是为外部流量执行熔断限制时所必需的。因此，我们也要在之前应用的 `Egress` 配置中更新添加一个 `matches` 字段。
+5. 使用 `UpstreamTrafficSetting` 资源为请求到外部域名 `httpbin.httpbin.svc.cluster.local` 的流量应用配置熔断器，并将最大并发连接数和请求数限制为`1`。为外部（出口）流量应用 `UpstreamTrafficSetting` 配置时，`UpstreamTrafficSetting` 资源还必须在 `Egress` 配置中指定为匹配项，并且与匹配的 `Egress` 资源属于同一命名空间。这是为外部流量执行熔断限制时所必需的。因此，我们也要在之前应用的 `Egress` 配置中更新添加一个 `matches` 字段。
     ```bash
     kubectl apply -f - <<EOF
     apiVersion: policy.openservicemesh.io/v1alpha1

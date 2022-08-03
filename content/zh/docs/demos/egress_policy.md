@@ -12,7 +12,7 @@ weight: 15
 - Kubernetes 集群运行版本 {{< param min_k8s_version >}} 或者更高。
 - 已安装 OSM。
 - 已安装 `kubectl` 与 API server 交互。
-- 已安装 `osm`  命令行工具，用于管理服务网格。
+- 已安装 `osm` 命令行工具，用于管理服务网格。
 
 
 ## 演示
