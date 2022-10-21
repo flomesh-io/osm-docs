@@ -7,7 +7,7 @@ weight: 4
 
 # Configure Traffic Split between Two Services
 
-We will now demonstrate how to balance traffic between two Kubernetes services, commonly known as a traffic split. We will be splitting the traffic directed to the root `bookstore` service between the backends `bookstore` service and `bookstore-v2` service.
+We will now demonstrate how to balance traffic between two Kubernetes services, commonly known as a traffic split. We will be splitting the traffic directed to the *root* `bookstore` service between the backends `bookstore-v1` service and `bookstore-v2` service.  The `bookstore-v1` and `bookstore-v2` services are also known as leaf services.  Learn more on how to configure services for Traffic Splitting in the [traffic Splitting how-to guide](/docs/guides/traffic_management/traffic_split.md)
 
 ### Deploy bookstore v2 application
 
@@ -19,23 +19,35 @@ To demonstrate usage of SMI traffic access and split policies, we will now deplo
 kubectl apply -f https://raw.githubusercontent.com/openservicemesh/osm-docs/{{< param osm_branch >}}/manifests/apps/bookstore-v2.yaml
 ```
 
-Wait for the `bookstore-v2` pod to be running in the `bookstore` namespace. Next, exit and restart the `./scripts/port-forward-all.sh` script in order to access v2 of bookstore.
+Wait for the `bookstore-v2` pod to be running in the `bookstore` namespace. Next, exit and restart the port-forward scripts in order to access v2 of bookstore:
+
+```bash
+bash <<EOF
+./scripts/port-forward-bookbuyer-ui.sh &
+./scripts/port-forward-bookstore-ui.sh &
+./scripts/port-forward-bookstore-ui-v2.sh &
+./scripts/port-forward-bookthief-ui.sh &
+wait
+EOF
+```
 
 - [http://localhost:8082](http://localhost:8082) - **bookstore-v2**
 
-The counter should _not_ be incrementing because no traffic is flowing yet to the `bookstore-v2` service.
+The `bookstore-v2` counter should be incrementing because traffic to the root `bookstore` service is configured with a label selector which selects endpoints that include both the `bookstore-v1` and `bookstore-v2` backend pods.
 
 ### Create SMI Traffic Split
 
-Deploy the SMI traffic split policy to direct 100 percent of the traffic sent to the root `bookstore` service to the `bookstore` service backend:
+Deploy the SMI traffic split policy to direct 100 percent of the traffic sent to the root `bookstore` service to the `bookstore-v1` service backend. This is necessary to ensure traffic directed to the `bookstore` service is only directed to `version v1` of the bookstore app, which includes the pods backing the `bookstore-v1` service. The `TrafficSplit` configuration will be subsequently updated to direct a percentage of traffic to `version v2` of the bookstore service using the `bookstore-v2` leaf service. 
+
+For this reason, it is important to ensure client applications always communicate with the root service if a traffic split is desired. Otherwise the client application will need to be updated to communicate with the *root* service when a traffic split is desired.
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/openservicemesh/osm-docs/{{< param osm_branch >}}/manifests/split/traffic-split-v1.yaml
 ```
 
-_Note: The root service can be any Kubernetes service. It does not have any label selectors. It also doesn't need to overlap with any of the Backend services specified in the Traffic Split resource. The root service can be referred to in the SMI Traffic Split resource as the name of the service with or without the `.<namespace>` suffix._
+_Note: The root service is a Kubernetes service whose selector needs to match the pods backing the leaf services. In this demo, the root service `bookstore` has the selector `app:bookstore`, which matches both the labels `app:bookstore,version:v1` and `app:bookstore,version=v2` on the `bookstore (v1)` and `bookstore-v2` deployments respectively. The root service can be referred to in the SMI Traffic Split resource as the name of the service with or without the `.<namespace>.svc.cluster.local` suffix._
 
-The count for the books sold from the `bookstore-v2` browser window should remain at 0. This is because the current traffic split policy is currently weighted 100 for `bookstore` in addition to the fact that `bookbuyer` is sending traffic to the `bookstore` service and no application is sending requests to the `bookstore-v2` service. You can verify the traffic split policy by running the following and viewing the **Backends** properties:
+The count for the books sold from the `bookstore-v2` browser window should stop incrementing. This is because the current traffic split policy is weighted 100 for `bookstore-v1` which exludes pods backing the `bookstore-v2` service. You can verify the traffic split policy by running the following and viewing the **Backends** properties:
 
 ```bash
 kubectl describe trafficsplit bookstore-split -n bookstore

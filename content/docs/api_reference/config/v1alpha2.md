@@ -34,17 +34,6 @@ Resource Types:
 <tbody>
 <tr>
 <td>
-<code>secretName</code><br/>
-<em>
-string
-</em>
-</td>
-<td>
-<p>SecretName specifies the name of the k8s secret containing the root certificate</p>
-</td>
-</tr>
-<tr>
-<td>
 <code>issuerName</code><br/>
 <em>
 string
@@ -128,68 +117,6 @@ IngressGatewayCertSpec
 <td>
 <em>(Optional)</em>
 <p>IngressGateway defines the certificate specification for an ingress gateway.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<h3 id="config.openservicemesh.io/v1alpha2.ClusterSpec">ClusterSpec
-</h3>
-<p>
-(<em>Appears on:</em><a href="#config.openservicemesh.io/v1alpha2.MultiClusterServiceSpec">MultiClusterServiceSpec</a>)
-</p>
-<div>
-<p>ClusterSpec is the type used to represent a remote cluster in multicluster scenarios.</p>
-</div>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<code>address</code><br/>
-<em>
-string
-</em>
-</td>
-<td>
-<p>Address defines the remote IP address of the gateway</p>
-</td>
-</tr>
-<tr>
-<td>
-<code>name</code><br/>
-<em>
-string
-</em>
-</td>
-<td>
-<p>Name defines the name of the remote cluster.</p>
-</td>
-</tr>
-<tr>
-<td>
-<code>weight</code><br/>
-<em>
-int
-</em>
-</td>
-<td>
-<p>Weight defines the load balancing weight of the remote cluster</p>
-</td>
-</tr>
-<tr>
-<td>
-<code>priority</code><br/>
-<em>
-int
-</em>
-</td>
-<td>
-<p>Priority defines the priority of the remote cluster in locality based load balancing</p>
 </td>
 </tr>
 </tbody>
@@ -316,17 +243,6 @@ bool
 </td>
 <td>
 <p>EnableEgressPolicy defines if OSM&rsquo;s Egress policy is enabled.</p>
-</td>
-</tr>
-<tr>
-<td>
-<code>enableMulticlusterMode</code><br/>
-<em>
-bool
-</em>
-</td>
-<td>
-<p>EnableMulticlusterMode defines if Multicluster mode is enabled.</p>
 </td>
 </tr>
 <tr>
@@ -719,6 +635,17 @@ ProviderSpec
 <p>Provider specifies the mesh certificate provider</p>
 </td>
 </tr>
+<tr>
+<td>
+<code>trustDomain</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+<p>TrustDomain is the trust domain to use as a suffix in Common Names for new certificates.</p>
+</td>
+</tr>
 </table>
 </td>
 </tr>
@@ -767,6 +694,17 @@ ProviderSpec
 <p>Provider specifies the mesh certificate provider</p>
 </td>
 </tr>
+<tr>
+<td>
+<code>trustDomain</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+<p>TrustDomain is the trust domain to use as a suffix in Common Names for new certificates.</p>
+</td>
+</tr>
 </tbody>
 </table>
 <h3 id="config.openservicemesh.io/v1alpha2.MeshRootCertificateStatus">MeshRootCertificateStatus
@@ -793,162 +731,8 @@ string
 </em>
 </td>
 <td>
-<p>State specifies the state of the root certificate rotation</p>
-</td>
-</tr>
-<tr>
-<td>
-<code>rotationStage</code><br/>
-<em>
-string
-</em>
-</td>
-<td>
-<p>RotationStage specifies the stage of the rotation indicating how a
-root certificate is currently being used within the mesh. The exact
-meaning of the RotationStage status is determined by the accompanying
-State status</p>
-</td>
-</tr>
-</tbody>
-</table>
-<h3 id="config.openservicemesh.io/v1alpha2.MultiClusterService">MultiClusterService
-</h3>
-<div>
-<p>MultiClusterService is the type used to represent the multicluster configuration.
-MultiClusterService name needs to match the name of the service backing the pods in each cluster.</p>
-</div>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<code>metadata</code><br/>
-<em>
-<a href="https://v1-20.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#objectmeta-v1-meta">
-Kubernetes meta/v1.ObjectMeta
-</a>
-</em>
-</td>
-<td>
-<em>(Optional)</em>
-<p>Object&rsquo;s metadata.</p>
-Refer to the Kubernetes API documentation for the fields of the
-<code>metadata</code> field.
-</td>
-</tr>
-<tr>
-<td>
-<code>spec</code><br/>
-<em>
-<a href="#config.openservicemesh.io/v1alpha2.MultiClusterServiceSpec">
-MultiClusterServiceSpec
-</a>
-</em>
-</td>
-<td>
-<p>Spec is the MultiClusterService specification.</p>
-<br/>
-<br/>
-<table>
-<tr>
-<td>
-<code>clusters</code><br/>
-<em>
-<a href="#config.openservicemesh.io/v1alpha2.ClusterSpec">
-[]ClusterSpec
-</a>
-</em>
-</td>
-<td>
-<p>ClusterSpec defines the configuration of other clusters</p>
-</td>
-</tr>
-<tr>
-<td>
-<code>serviceAccount</code><br/>
-<em>
-string
-</em>
-</td>
-<td>
-<p>ServiceAccount represents the service account of the multicluster service.</p>
-</td>
-</tr>
-<tr>
-<td>
-<code>ports</code><br/>
-<em>
-<a href="#config.openservicemesh.io/v1alpha2.PortSpec">
-[]PortSpec
-</a>
-</em>
-</td>
-<td>
-<p>Ports is the list of ports exported by this service.</p>
-</td>
-</tr>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-<h3 id="config.openservicemesh.io/v1alpha2.MultiClusterServiceSpec">MultiClusterServiceSpec
-</h3>
-<p>
-(<em>Appears on:</em><a href="#config.openservicemesh.io/v1alpha2.MultiClusterService">MultiClusterService</a>)
-</p>
-<div>
-<p>MultiClusterServiceSpec is the type used to represent the multicluster service specification.</p>
-</div>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<code>clusters</code><br/>
-<em>
-<a href="#config.openservicemesh.io/v1alpha2.ClusterSpec">
-[]ClusterSpec
-</a>
-</em>
-</td>
-<td>
-<p>ClusterSpec defines the configuration of other clusters</p>
-</td>
-</tr>
-<tr>
-<td>
-<code>serviceAccount</code><br/>
-<em>
-string
-</em>
-</td>
-<td>
-<p>ServiceAccount represents the service account of the multicluster service.</p>
-</td>
-</tr>
-<tr>
-<td>
-<code>ports</code><br/>
-<em>
-<a href="#config.openservicemesh.io/v1alpha2.PortSpec">
-[]PortSpec
-</a>
-</em>
-</td>
-<td>
-<p>Ports is the list of ports exported by this service.</p>
+<p>State specifies the state of the certificate provider
+All states are specified in constants.go</p>
 </td>
 </tr>
 </tbody>
@@ -1002,46 +786,6 @@ TracingSpec
 </td>
 <td>
 <p>Tracing defines OSM&rsquo;s tracing configuration.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<h3 id="config.openservicemesh.io/v1alpha2.PortSpec">PortSpec
-</h3>
-<p>
-(<em>Appears on:</em><a href="#config.openservicemesh.io/v1alpha2.MultiClusterServiceSpec">MultiClusterServiceSpec</a>)
-</p>
-<div>
-<p>PortSpec contains information on service&rsquo;s port.</p>
-</div>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<code>Port</code><br/>
-<em>
-uint32
-</em>
-</td>
-<td>
-<p>The port that will be exposed by this service.</p>
-</td>
-</tr>
-<tr>
-<td>
-<code>Protocol</code><br/>
-<em>
-string
-</em>
-</td>
-<td>
-<p>Protocol is The IP protocol for this port. Supports &ldquo;TCP&rdquo;, &ldquo;UDP&rdquo;, and &ldquo;SCTP&rdquo;. Default is TCP.</p>
 </td>
 </tr>
 </tbody>
@@ -1102,6 +846,57 @@ TresorProviderSpec
 <td>
 <em>(Optional)</em>
 <p>Tresor specifies the Tresor provider configuration</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="config.openservicemesh.io/v1alpha2.SecretKeyReferenceSpec">SecretKeyReferenceSpec
+</h3>
+<p>
+(<em>Appears on:</em><a href="#config.openservicemesh.io/v1alpha2.VaultTokenSpec">VaultTokenSpec</a>)
+</p>
+<div>
+<p>SecretKeyReferenceSpec defines the configuration of the secret reference</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>name</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+<p>Name specifies the name of the secret in which the Vault token is stored</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>key</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+<p>Key specifies the key whose value is the Vault token</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>namespace</code><br/>
+<em>
+string
+</em>
+</td>
+<td>
+<p>Namespace specifies the namespace of the secret in which the Vault token is stored</p>
 </td>
 </tr>
 </tbody>
@@ -1445,6 +1240,37 @@ sidecar proxy.</p>
 </tr>
 </tbody>
 </table>
+<h3 id="config.openservicemesh.io/v1alpha2.TresorCASpec">TresorCASpec
+</h3>
+<p>
+(<em>Appears on:</em><a href="#config.openservicemesh.io/v1alpha2.TresorProviderSpec">TresorProviderSpec</a>)
+</p>
+<div>
+<p>TresorCASpec defines the configuration of Tresor&rsquo;s root certificate</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>secretRef</code><br/>
+<em>
+<a href="https://v1-20.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#secretreference-v1-core">
+Kubernetes core/v1.SecretReference
+</a>
+</em>
+</td>
+<td>
+<p>SecretRef specifies the secret in which the root certificate is stored</p>
+</td>
+</tr>
+</tbody>
+</table>
 <h3 id="config.openservicemesh.io/v1alpha2.TresorProviderSpec">TresorProviderSpec
 </h3>
 <p>
@@ -1463,13 +1289,15 @@ sidecar proxy.</p>
 <tbody>
 <tr>
 <td>
-<code>secretName</code><br/>
+<code>ca</code><br/>
 <em>
-string
+<a href="#config.openservicemesh.io/v1alpha2.TresorCASpec">
+TresorCASpec
+</a>
 </em>
 </td>
 <td>
-<p>SecretName specifies the name of the secret storing the root certificate</p>
+<p>CA specifies Tresor&rsquo;s ca configuration</p>
 </td>
 </tr>
 </tbody>
@@ -1503,6 +1331,17 @@ string
 </tr>
 <tr>
 <td>
+<code>port</code><br/>
+<em>
+int
+</em>
+</td>
+<td>
+<p>Port specifies the port of the Vault server</p>
+</td>
+</tr>
+<tr>
+<td>
 <code>role</code><br/>
 <em>
 string
@@ -1527,12 +1366,45 @@ string
 <td>
 <code>token</code><br/>
 <em>
-string
+<a href="#config.openservicemesh.io/v1alpha2.VaultTokenSpec">
+VaultTokenSpec
+</a>
 </em>
 </td>
 <td>
-<p>Token specifies the name of the token to be used by mesh control plane
+<p>Token specifies the configuration of the token to be used by mesh control plane
 to connect to Vault</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="config.openservicemesh.io/v1alpha2.VaultTokenSpec">VaultTokenSpec
+</h3>
+<p>
+(<em>Appears on:</em><a href="#config.openservicemesh.io/v1alpha2.VaultProviderSpec">VaultProviderSpec</a>)
+</p>
+<div>
+<p>VaultTokenSpec defines the configuration of the Vault token</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>secretKeyRef</code><br/>
+<em>
+<a href="#config.openservicemesh.io/v1alpha2.SecretKeyReferenceSpec">
+SecretKeyReferenceSpec
+</a>
+</em>
+</td>
+<td>
+<p>SecretKeyRef specifies the secret in which the Vault token is stored</p>
 </td>
 </tr>
 </tbody>
@@ -1540,5 +1412,5 @@ to connect to Vault</p>
 <hr/>
 <p><em>
 Generated with <code>gen-crd-api-reference-docs</code>
-on git commit <code>407bbedd5</code>.
+on git commit <code>893ff872</code>.
 </em></p>

@@ -70,68 +70,6 @@ IngressGatewayCertSpec
 </tr>
 </tbody>
 </table>
-<h3 id="config.openservicemesh.io/v1alpha1.ClusterSpec">ClusterSpec
-</h3>
-<p>
-(<em>Appears on:</em><a href="#config.openservicemesh.io/v1alpha1.MultiClusterServiceSpec">MultiClusterServiceSpec</a>)
-</p>
-<div>
-<p>ClusterSpec is the type used to represent a remote cluster in multicluster scenarios.</p>
-</div>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<code>address</code><br/>
-<em>
-string
-</em>
-</td>
-<td>
-<p>Address defines the remote IP address of the gateway</p>
-</td>
-</tr>
-<tr>
-<td>
-<code>name</code><br/>
-<em>
-string
-</em>
-</td>
-<td>
-<p>Name defines the name of the remote cluster.</p>
-</td>
-</tr>
-<tr>
-<td>
-<code>weight</code><br/>
-<em>
-int
-</em>
-</td>
-<td>
-<p>Weight defines the load balancing weight of the remote cluster</p>
-</td>
-</tr>
-<tr>
-<td>
-<code>priority</code><br/>
-<em>
-int
-</em>
-</td>
-<td>
-<p>Priority defines the priority of the remote cluster in locality based load balancing</p>
-</td>
-</tr>
-</tbody>
-</table>
 <h3 id="config.openservicemesh.io/v1alpha1.ExternalAuthzSpec">ExternalAuthzSpec
 </h3>
 <p>
@@ -254,17 +192,6 @@ bool
 </td>
 <td>
 <p>EnableEgressPolicy defines if OSM&rsquo;s Egress policy is enabled.</p>
-</td>
-</tr>
-<tr>
-<td>
-<code>enableMulticlusterMode</code><br/>
-<em>
-bool
-</em>
-</td>
-<td>
-<p>EnableMulticlusterMode defines if Multicluster mode is enabled.</p>
 </td>
 </tr>
 <tr>
@@ -576,147 +503,6 @@ FeatureFlags
 </tr>
 </tbody>
 </table>
-<h3 id="config.openservicemesh.io/v1alpha1.MultiClusterService">MultiClusterService
-</h3>
-<div>
-<p>MultiClusterService is the type used to represent the multicluster configuration.
-MultiClusterService name needs to match the name of the service backing the pods in each cluster.</p>
-</div>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<code>metadata</code><br/>
-<em>
-<a href="https://v1-20.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#objectmeta-v1-meta">
-Kubernetes meta/v1.ObjectMeta
-</a>
-</em>
-</td>
-<td>
-<em>(Optional)</em>
-<p>Object&rsquo;s metadata.</p>
-Refer to the Kubernetes API documentation for the fields of the
-<code>metadata</code> field.
-</td>
-</tr>
-<tr>
-<td>
-<code>spec</code><br/>
-<em>
-<a href="#config.openservicemesh.io/v1alpha1.MultiClusterServiceSpec">
-MultiClusterServiceSpec
-</a>
-</em>
-</td>
-<td>
-<p>Spec is the MultiClusterService specification.</p>
-<br/>
-<br/>
-<table>
-<tr>
-<td>
-<code>clusters</code><br/>
-<em>
-<a href="#config.openservicemesh.io/v1alpha1.ClusterSpec">
-[]ClusterSpec
-</a>
-</em>
-</td>
-<td>
-<p>ClusterSpec defines the configuration of other clusters</p>
-</td>
-</tr>
-<tr>
-<td>
-<code>serviceAccount</code><br/>
-<em>
-string
-</em>
-</td>
-<td>
-<p>ServiceAccount represents the service account of the multicluster service.</p>
-</td>
-</tr>
-<tr>
-<td>
-<code>ports</code><br/>
-<em>
-<a href="#config.openservicemesh.io/v1alpha1.PortSpec">
-[]PortSpec
-</a>
-</em>
-</td>
-<td>
-<p>Ports is the list of ports exported by this service.</p>
-</td>
-</tr>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-<h3 id="config.openservicemesh.io/v1alpha1.MultiClusterServiceSpec">MultiClusterServiceSpec
-</h3>
-<p>
-(<em>Appears on:</em><a href="#config.openservicemesh.io/v1alpha1.MultiClusterService">MultiClusterService</a>)
-</p>
-<div>
-<p>MultiClusterServiceSpec is the type used to represent the multicluster service specification.</p>
-</div>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<code>clusters</code><br/>
-<em>
-<a href="#config.openservicemesh.io/v1alpha1.ClusterSpec">
-[]ClusterSpec
-</a>
-</em>
-</td>
-<td>
-<p>ClusterSpec defines the configuration of other clusters</p>
-</td>
-</tr>
-<tr>
-<td>
-<code>serviceAccount</code><br/>
-<em>
-string
-</em>
-</td>
-<td>
-<p>ServiceAccount represents the service account of the multicluster service.</p>
-</td>
-</tr>
-<tr>
-<td>
-<code>ports</code><br/>
-<em>
-<a href="#config.openservicemesh.io/v1alpha1.PortSpec">
-[]PortSpec
-</a>
-</em>
-</td>
-<td>
-<p>Ports is the list of ports exported by this service.</p>
-</td>
-</tr>
-</tbody>
-</table>
 <h3 id="config.openservicemesh.io/v1alpha1.ObservabilitySpec">ObservabilitySpec
 </h3>
 <p>
@@ -766,46 +552,6 @@ TracingSpec
 </td>
 <td>
 <p>Tracing defines OSM&rsquo;s tracing configuration.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<h3 id="config.openservicemesh.io/v1alpha1.PortSpec">PortSpec
-</h3>
-<p>
-(<em>Appears on:</em><a href="#config.openservicemesh.io/v1alpha1.MultiClusterServiceSpec">MultiClusterServiceSpec</a>)
-</p>
-<div>
-<p>PortSpec contains information on service&rsquo;s port.</p>
-</div>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<code>Port</code><br/>
-<em>
-uint32
-</em>
-</td>
-<td>
-<p>The port that will be exposed by this service.</p>
-</td>
-</tr>
-<tr>
-<td>
-<code>Protocol</code><br/>
-<em>
-string
-</em>
-</td>
-<td>
-<p>Protocol is The IP protocol for this port. Supports &ldquo;TCP&rdquo;, &ldquo;UDP&rdquo;, and &ldquo;SCTP&rdquo;. Default is TCP.</p>
 </td>
 </tr>
 </tbody>
@@ -1070,5 +816,5 @@ for all inbound and ingress traffic in the mesh.</p>
 <hr/>
 <p><em>
 Generated with <code>gen-crd-api-reference-docs</code>
-on git commit <code>407bbedd5</code>.
+on git commit <code>893ff872</code>.
 </em></p>
